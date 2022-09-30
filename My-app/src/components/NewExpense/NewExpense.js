@@ -23,7 +23,8 @@ const NewExpense = (props) => {
     return <div className="new-expense">
         {/*onSaveExpenseData- our function that is triggered when smth happens inside of this componends
         in our case, when user submit the data */}
-        {!isEditing && <button onClick={startEditingHandler}>wydaj kase portfel niech płacze</button>}
+        {/* {!isEditing && <button onClick={startEditingHandler}>Add Expense</button>} */}
+        {!isEditing ? <button onClick={startEditingHandler}>Add Expense</button> : <></>}
         {isEditing && <ExpenseForm
             onSaveExpenseData={saveExpenseDataHandler}
             onStopEditing={stopEditingHandler}
