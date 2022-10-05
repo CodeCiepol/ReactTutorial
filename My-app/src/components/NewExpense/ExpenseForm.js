@@ -74,6 +74,7 @@ const ExpenseForm = (props) => {
                         <input
                             type="text"
                             value={enteredTitle}
+                            placeholder='dziwki'
                             onChange={titleChangeHandler} />
                     </div>
                     <div className="new-expense__control">
