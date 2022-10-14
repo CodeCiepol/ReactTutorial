@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer , useContext} from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../store/auth-context";
 
-function emailReducer2(State,action){ if (action.type === "USER_INPUT") {
-  return { value: action.val, isValid: action.val.includes("@") };
-}
-if (action.type === "INPUT_BLUR") {
-  return { value: State.value, isValid: State.value.includes("@") };
-}
-return { value: "", isValid: false };
-};
-
+// function emailReducer2(State, action) {
+//   if (action.type === "USER_INPUT") {
+//     return { value: action.val, isValid: action.val.includes("@") };
+//   }
+//   if (action.type === "INPUT_BLUR") {
+//     return { value: State.value, isValid: State.value.includes("@") };
+//   }
+//   return { value: "", isValid: false };
+// }
 
 const emailReducer = (State, action) => {
   if (action.type === "USER_INPUT") {
@@ -52,6 +53,8 @@ const Login = (props) => {
     value: "",
     isValid: null,
   });
+
+const ctx=useContext(AuthContext);
 
   // useEffect(() => {
   //   console.log("effect running")
@@ -100,7 +103,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    ctx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
@@ -118,10 +121,10 @@ const Login = (props) => {
             value={emailState.value}
             // onChange={emailChangeHandler}
             onChange={(event) => {
-             // console.log("123");
-             return emailChangeHandler(event);
+              // console.log("123");
+              return emailChangeHandler(event);
             }}
-            onBlur={() => dispatchEmail({ type: "INPUT_BLUR" })} //{validateEmailHandler}
+            onBlur={validateEmailHandler}
           />
         </div>
         <div
