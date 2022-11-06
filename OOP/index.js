@@ -24,25 +24,111 @@ function Circle(radius) {
     console.log("draw");
   };
 }
+const another = new Circle(1); // "new" will add an empty object, set "this" to pointer to that object and finally return an object from a function Circle
 
+class CircleClass {
+  constructor(radius) {
+    this.radius = radius;
+  }
+  draw(){
+    console.log("draw");
+  }
+  diameter(){
+    console.log(2*this.radius)
+  }
+}
 
+// adding to object
+circle.location = { x: 1 };
+another["location"] = { x: 1 };
+
+// for i in methods
+for (let key in circle) {
+  console.log(key);
+}
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 // example of using .call
 const cart = {
-    value: 0,
-    discount: 0,
-    getReducedPrice: function() {
-      return this.value - (this.value * this.discount);
-    }
-  }
-  const cartWithStuff = {
-    value: 300,
-    discount: 0.12,
-    products: ["Cherries", "Bananas", "Pineapples"]
-  }
-  console.log(cart.getReducedPrice.call(cartWithStuff))
+  value: 0,
+  discount: 0,
+  getReducedPrice: function () {
+    return this.value - this.value * this.discount;
+  },
+};
+const cartWithStuff = {
+  value: 300,
+  discount: 0.12,
+  products: ["Cherries", "Bananas", "Pineapples"],
+};
+console.log(cart.getReducedPrice.call(cartWithStuff));
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
+// primitives are copied by their value, objects are copied by their reference
+let x = { value: 10 },
+  y = 10;
 
-const another = new Circle(1); // "new" will add an empty object, set "this" to pointer to that object and finally return an object from a function Circle
+function zmienna(props) {
+  props.value++;
+}
+function zmienna1(props) {
+  props++;
+}
+
+zmienna(x);
+zmienna1(y);
+console.log(x);
+console.log(y);
+/////////////////////////////////////////////////////////////
+
+// STOP WATCH OBJECT
+class State {
+  constructor() {
+    this.value="notStarted"
+  }
+  switchState(newState){
+    this.value=newState
+  }
+  compareState(other){
+    return this.value===other
+  }
+}
+// this.state=State
+function Stopwatch() {
+  let duration = 0,
+    startTime,
+    endTime,
+    state = new State();
+  // notStarted -> started -> stopped
+  this.start = function () {
+    if (state.compareState("started")) {
+      throw new Error("Stopwatch is working");
+    } else {
+      startTime = performance.now();
+      state.switchState("started")
+    }
+  };
+  this.stop = function () {
+    if (!state.compareState("started")) {
+      throw new Error("Stopwatch is not working");
+    } else {
+      endTime = performance.now();
+      duration += endTime - startTime;
+      state.switchState("stopped")
+    }
+  };
+
+  this.reset = () => {
+    duration = 0;
+    state.switchState("notStarted")
+  };
+
+  Object.defineProperty(this, "duration", {
+    get: function () {
+      return console.log(duration);
+    },
+    set: function () {
+      throw new Error("U cannot change a duration");
+    },
+  });
+}
