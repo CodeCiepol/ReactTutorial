@@ -1,28 +1,37 @@
-import { Component, useState } from "react";
+import { Component } from "react";
 import User from "./User";
 
 import classes from "./Users.module.css";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
-
 class Users extends Component {
-  constructor(){
-    this.state = {};
+  constructor() {
+    super();
+    this.state = {
+      showUsers: true,
+      more: "Test",
+    };
   }
-  toggleUsersHandler(){
+  toggleUsersHandler() {
+    this.setState((curState) => {
+      return { showUsers: !curState.showUsers };
+    });
   }
 
   render() {
+    const usersList = (
+      <ul>
+        {this.props.users.map((user) => (
+          <User key={user.id} name={user.name} />
+        ))}
+      </ul>
+    );
+
     return (
       <div className={classes.users}>
-        <button onClick={toggleUsersHandler}>
-          {showUsers ? "Hide" : "Show"} Users
+        <button onClick={this.toggleUsersHandler.bind(this)}>
+          {this.state.showUsers ? "Hide" : "Show"} Users
         </button>
-        {showUsers && usersList}
+        {this.state.showUsers && usersList}
       </div>
     );
   }
@@ -53,4 +62,4 @@ class Users extends Component {
 //   );
 // };
 
-// export default Users;
+export default Users;

@@ -27,3 +27,10 @@ const dupa2 = strzalka2(3)
 console.log(strzalka2(3)(5))
 console.log(dupa2(5))
 
+class Rectangle {
+    constructor(height,width){
+        this.height = height,
+        this.width = width
+    }
+}
+

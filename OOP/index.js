@@ -132,3 +132,34 @@ function Stopwatch() {
     },
   });
 }
+
+class Rectangle {
+  constructor(height,width){
+      this.height = height
+      this.width = width
+      console.log(`creating rectangle with height: ${this.height} and width: ${this.width}`)
+  }
+  area(){
+    return this.height*this.width
+  }
+  name(){
+    return 'napiszeTuCos'
+  }
+}
+
+const r = new Rectangle(3.5,3);
+
+class Square extends Rectangle {
+  constructor(a){
+    super(a,a)
+    console.log(`creating Square with height: ${a} and width: ${a}`)
+}
+name(){
+  const parentName = super.name()
+  return "nieNapisze"+parentName
+}
+}
+
+const s= new Square(3);
+
+
