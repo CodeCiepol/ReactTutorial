@@ -1,8 +1,9 @@
-import BasicInput from './components/BasicForm'
+import BasicForm from './components/BasicForm';
+
 function App() {
   return (
     <div className="app">
-      <BasicInput />
+      <BasicForm />
     </div>
   );
 }

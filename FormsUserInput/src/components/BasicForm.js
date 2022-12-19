@@ -1,89 +1,101 @@
-import useInput from './hooks/useInput'
+import useInput from '../hooks/use-input';
+
+const isNotEmpty = (value) => value.trim() !== '';
+const isEmail = (value) => value.includes('@');
 
 const BasicForm = (props) => {
   const {
-    value: enteredFirstName,
+    value: firstNameValue,
     isValid: firstNameIsValid,
     hasError: firstNameHasError,
-    ValueChangeHandler: firstNameChangeHandler,
-    InputBlurHandler: firstNameBlurHandler,
-    reset: firstNameReset,
-  } = useInput((value) => value.trim() !== '')
-
+    valueChangeHandler: firstNameChangeHandler,
+    inputBlurHandler: firstNameBlurHandler,
+    reset: resetFirstName,
+  } = useInput(isNotEmpty);
   const {
-    value: enteredLastName,
+    value: lastNameValue,
     isValid: lastNameIsValid,
     hasError: lastNameHasError,
-    ValueChangeHandler: lastNameChangeHandler,
-    InputBlurHandler: lastNameBlurHandler,
-    reset: lastNameReset,
-  } = useInput((value) => value.trim() !== '')
-
+    valueChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    reset: resetLastName,
+  } = useInput(isNotEmpty);
   const {
-    value: enteredEmail,
+    value: emailValue,
     isValid: emailIsValid,
     hasError: emailHasError,
-    ValueChangeHandler: emailChangeHandler,
-    InputBlurHandler: emailBlurHandler,
-    reset: emailReset,
-  } = useInput((value) => value.includes('@'))
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmail,
+  } = useInput(isEmail);
 
-  let formIsValid = false
+  let formIsValid = false;
+
   if (firstNameIsValid && lastNameIsValid && emailIsValid) {
-    formIsValid = true
+    formIsValid = true;
   }
-  const formSubmissionHandler = (event) => {
-    event.preventDefault()
+
+  const submitHandler = event => {
+    event.preventDefault();
 
     if (!formIsValid) {
-      return
+      return;
     }
 
-    firstNameReset()
-    lastNameReset()
-    emailReset()
-  }
+    console.log('Submitted!');
+    console.log(firstNameValue, lastNameValue, emailValue);
 
-  const firstNameInputClasses = firstNameHasError ? 'form-control invalid' : 'form-control'
-  const emailInputClasses = emailHasError ? 'form-control invalid' : 'form-control'
-  const lastNameInputClasses = lastNameHasError ? 'form-control invalid' : 'form-control'
+    resetFirstName();
+    resetLastName();
+    resetEmail();
+  };
+
+  const firstNameClasses = firstNameHasError ? 'form-control invalid' : 'form-control';
+  const lastNameClasses = lastNameHasError ? 'form-control invalid' : 'form-control';
+  const emailClasses = emailHasError ? 'form-control invalid' : 'form-control';
 
   return (
-    <form onSubmit={formSubmissionHandler}>
-      <div className="control-group">
-        <div className={firstNameInputClasses}>
-          <label htmlFor="name">First Name</label>
+    <form onSubmit={submitHandler}>
+      <div className='control-group'>
+        <div className={firstNameClasses}>
+          <label htmlFor='name'>First Name</label>
           <input
-            type="text"
-            id="name"
+            type='text'
+            id='name'
+            value={firstNameValue}
             onChange={firstNameChangeHandler}
             onBlur={firstNameBlurHandler}
-            value={enteredFirstName}
           />
-          {firstNameHasError && <p className="error-text">Name must not be empty.</p>}
+          {firstNameHasError && <p className="error-text">Please enter a first name.</p>}
         </div>
-        <div className={lastNameInputClasses}>
-          <label htmlFor="name">Last Name</label>
+        <div className={lastNameClasses}>
+          <label htmlFor='name'>Last Name</label>
           <input
-            type="text"
-            id="name"
+            type='text'
+            id='name'
+            value={lastNameValue}
             onChange={lastNameChangeHandler}
             onBlur={lastNameBlurHandler}
-            value={enteredLastName}
           />
-          {lastNameHasError && <p className="error-text">Last name must not be empty.</p>}
-        </div>
-        <div className={emailInputClasses}>
-          <label htmlFor="name">E-Mail Address</label>
-          <input type="text" id="name" onChange={emailChangeHandler} onBlur={emailBlurHandler} value={enteredEmail} />
-          {emailHasError && <p className="error-text"> Incorrect email.</p>}
+          {lastNameHasError && <p className="error-text">Please enter a last name.</p>}
         </div>
       </div>
-      <div className="form-actions">
+      <div className={emailClasses}>
+        <label htmlFor='name'>E-Mail Address</label>
+        <input
+          type='text'
+          id='name'
+          value={emailValue}
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+        />
+        {emailHasError && <p className="error-text">Please enter a valid email address.</p>}
+      </div>
+      <div className='form-actions'>
         <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default BasicForm
+export default BasicForm;
