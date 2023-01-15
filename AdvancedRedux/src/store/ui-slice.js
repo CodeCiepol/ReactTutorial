@@ -15,6 +15,7 @@ const uiSlice = createSlice({
         title: action.payload.title,
         message: action.payload.message,
       }
+  console.log(state.notification)
     },
   },
 })
