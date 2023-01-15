@@ -7,5 +7,4 @@ const store = configureStore ({
 })
 
 export const uiActions=uiSlice.actions
-
 export default store
