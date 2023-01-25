@@ -1,12 +1,19 @@
-// import { Outlet } from "react-router-dom"
-// import MainNavigation from "../MainNavigation"
-// import classes from "./Root.module.css"
+import { Outlet } from 'react-router-dom'
+import MainNavigation from '../MainNavigation'
+import styled from 'styled-components'
 
-// export default function RootLayout(){
-//     return <>
-//     <MainNavigation/>
-//     {/* <main className={classes.content}> */}
-//     {/* <Outlet/> this is where out children are visible */}
-//     {/* </main> */}
-//     </>
-// }
+export default function RootLayout() {
+  const Centered = styled.main`
+    margin: 2rem auto;
+    text-align: center;
+  `
+
+  return (
+    <>
+      <MainNavigation />
+      <Centered>
+        <Outlet />
+      </Centered>
+    </>
+  )
+}

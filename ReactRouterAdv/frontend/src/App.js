@@ -31,8 +31,8 @@ import RootLayout from './components/pages/Root';
   const router = createBrowserRouter([
     {
       path: '/',
-      // errorElement: <ErrorPage/>,
-      // element: <RootLayout>,
+      errorElement: <ErrorPage/>,
+      element: <RootLayout/>,
       children: [
         { path: '', element: <HomePage /> },
         { path: 'events', element: <EventsPage /> },
