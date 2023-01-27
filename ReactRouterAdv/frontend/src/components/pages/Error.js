@@ -1,18 +1,22 @@
 import styled from 'styled-components'
 import MainNavigation from '../MainNavigation'
-
-export default function ErrorPage() {
+import PageContent from '../PageContent'
+import { useRouteError } from 'react-router-dom'
   const Centered = styled.main`
     margin: 2rem auto;
     text-align: center;
   `
 
+
+export default function ErrorPage() {
+const error =useRouteError();
   return (
     <>
       <MainNavigation />
       <Centered>
-        <h1>error occurred</h1>
+        <PageContent title="an error occurred!">
         <p>Could not find this page!</p>
+        </PageContent>
       </Centered>
     </>
   )
