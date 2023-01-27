@@ -23,7 +23,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EditEventPage from './components/pages/EditEvent'
 import ErrorPage from './components/pages/Error'
 import EventDetailPage from './components/pages/EventDetail'
-import EventsPage from './components/pages/Events'
+import EventsPage, { eventLoader } from './components/pages/Events'
 import HomePage from './components/pages/Home'
 import NewEventPage from './components/pages/NewEvent'
 import RootLayout from './components/pages/Root'
@@ -44,17 +44,7 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <EventsPage />,
-            loader: async () => {
-              const response = await fetch('http://localhost:8080/events')
-
-              if (!response.ok) {
-                // setError('Fetching events failed.');
-              } else {
-                const resData = await response.json()
-                return resData.events
-                // setFetchedEvents(resData.events);
-              }
-            },
+            loader: eventLoader,
           },
           { path: ':eventId', element: <EventDetailPage /> }, // we using ":" to set a dynamic path
           { path: ':eventId/edit', element: <EditEventPage /> },
