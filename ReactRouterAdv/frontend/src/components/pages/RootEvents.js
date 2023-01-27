@@ -1,22 +1,17 @@
 import { Outlet } from 'react-router-dom'
-import MainNavigation from '../MainNavigation'
 import styled from 'styled-components'
+import EventsNavigation from '../EventsNavigation'
 
   const Centered = styled.main`
     margin: 2rem auto;
     text-align: center;
   `
-export default function RootLayout() {
-
-const eventsNavigationHandler=(isActive)=>{
-// console.log(isActive)
-}
-
+export default function RootEventsLayout() {
 
   // console.log(Outlet)
   return (
     <>
-      <MainNavigation eventsNavigationHandler={eventsNavigationHandler}/>
+      <EventsNavigation/>
       <Centered>
         <Outlet />
       </Centered>
