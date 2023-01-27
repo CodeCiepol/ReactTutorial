@@ -4,10 +4,11 @@ function EventItem({ event }) {
   function startDeleteHandler() {
     // ...
   }
-
+console.log(event.title)
   return (
+      // <h1>{event.title}</h1>
     <article className={classes.event}>
-      <img src={event.image} alt={event.title} />
+      {/* <img src={event.image} alt={event.title} /> */}
       <h1>{event.title}</h1>
       <time>{event.date}</time>
       <p>{event.description}</p>
