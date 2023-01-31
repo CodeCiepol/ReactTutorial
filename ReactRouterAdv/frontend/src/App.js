@@ -22,10 +22,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EditEventPage from './components/pages/EditEvent'
 import ErrorPage from './components/pages/Error'
-import EventDetailPage from './components/pages/EventDetail'
+import EventDetailPage, { detailLoader } from './components/pages/EventDetail'
 import EventsPage, { eventLoader } from './components/pages/Events'
 import HomePage from './components/pages/Home'
-import NewEventPage from './components/pages/NewEvent'
+import NewEventPage, {action as newEventAction} from './components/pages/NewEvent'
 import RootLayout from './components/pages/Root'
 import RootEventsLayout from './components/pages/RootEvents'
 import EventsProvider from './components/store/eventsProvider'
@@ -46,9 +46,27 @@ const router = createBrowserRouter([
             element: <EventsPage />,
             loader: eventLoader,
           },
-          { path: ':eventId', element: <EventDetailPage /> }, // we using ":" to set a dynamic path
-          { path: ':eventId/edit', element: <EditEventPage /> },
-          { path: 'new', element: <NewEventPage /> },
+          {
+            path: ':eventId',
+            id:"eventDetail",
+            loader: detailLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetailPage />,
+              }, // we using ":" to set a dynamic path
+
+              {
+                path: 'edit',
+                element: <EditEventPage />,
+              },
+            ],
+          }, // we using ":" to set a dynamic path
+          {
+            path: 'new',
+            element: <NewEventPage />,
+            action: newEventAction,
+          },
         ],
       },
     ],
