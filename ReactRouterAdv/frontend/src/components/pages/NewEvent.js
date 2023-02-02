@@ -11,7 +11,7 @@ export default function NewEventPage() {
 }
 
 export async function action({ request, params }) {
-  const data = await request.FormData()
+  const data = await request.formData()
   const eventData = {
     title: data.get('title'),
     image: data.get('image'),
