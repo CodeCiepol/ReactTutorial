@@ -25,10 +25,11 @@ import ErrorPage from './components/pages/Error'
 import EventDetailPage, { detailLoader, action as deleteEventAction } from './components/pages/EventDetail'
 import EventsPage, { eventLoader } from './components/pages/Events'
 import HomePage from './components/pages/Home'
-import NewEventPage, { action as newEventAction } from './components/pages/NewEvent'
+import NewEventPage from './components/pages/NewEvent'
 import RootLayout from './components/pages/Root'
 import RootEventsLayout from './components/pages/RootEvents'
 import EventsProvider from './components/store/eventsProvider'
+import { action as manipulateEventAction } from './components/EventForm'
 
 const router = createBrowserRouter([
   {
@@ -60,13 +61,14 @@ const router = createBrowserRouter([
               {
                 path: 'edit',
                 element: <EditEventPage />,
+                action: manipulateEventAction,
               },
             ],
           }, // we using ":" to set a dynamic path
           {
             path: 'new',
             element: <NewEventPage />,
-            action: newEventAction,
+            action: manipulateEventAction,
           },
         ],
       },
