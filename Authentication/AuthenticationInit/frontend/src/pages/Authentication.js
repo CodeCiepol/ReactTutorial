@@ -36,5 +36,11 @@ export async function action({ request }) {
     throw json({message: 'Could not authenticate user.'},{status: 500})
   }
 
+  const respData = await response.json()
+  const token = respData.token
+  localStorage.setItem('token',token)
+
   return redirect('/')
 }
+
+
