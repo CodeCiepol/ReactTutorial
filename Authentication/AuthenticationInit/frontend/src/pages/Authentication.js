@@ -39,9 +39,9 @@ export async function action({ request }) {
   const respData = await response.json()
   const token = respData.token
   localStorage.setItem('token', token)
-  const expiration = new Date()
-  expiration.setHours(expiration.Hours() + 1)
-  localStorage.setItem('expiration',expiration.toISOString())
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/')
 }
