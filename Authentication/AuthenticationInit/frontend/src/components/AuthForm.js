@@ -9,7 +9,7 @@ function AuthForm() {
   const isSubmitting = navigation.state === 'submitting'
   const [searchParams] = useSearchParams()
   const isLogin = searchParams.get('mode') === 'login'
-  console.log(navigation)
+  // console.log(navigation)
   return (
     <>
       <Form method="post" className={classes.form}>
