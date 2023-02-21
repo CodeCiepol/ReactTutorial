@@ -8,7 +8,7 @@ const Todos: React.FC<{ items: Todo[], onSubTodo: (id: string)=>void }> = (props
     <ul className={classes.todos}>
       {props.items.map((item) => (
         <li className={classes.item} key={item.id}>
-          <TodoItem item={item} onSubTodo={props.onSubTodo}/>
+          <TodoItem {...item} onSubTodo={props.onSubTodo}/>
         </li>
       ))}
     </ul>
